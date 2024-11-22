@@ -1,24 +1,33 @@
 package org.example;
 
-import java.sql.*;
+import java.util.Date;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Connection conn;
+        EmployeeData employeeData = new EmployeeData();
 
-        String url = "jdbc:postgresql:postgres"; // testdb is a name of database
-        String username = "postgres";
-        String password = "123456";
+        Employee emp1 = new Employee("Izat Manapov", "Mapper", 7300, new Date());
+        employeeData.createEmployee(emp1);
+        System.out.println("Employee have just created.");
 
-        try {
-            conn = DriverManager.getConnection(url, username, password);
-            System.out.println("Connected to Database.");
+        Employee emp = employeeData.getEmployeeById(207109);
+        System.out.println("Retrieved: " + emp);
+
+        System.out.println("All employees:");
+        for (Employee e : employeeData.getAllEmployees()) {
+            System.out.println(e);
         }
-        catch(SQLException e){
+
+        emp.setPosition("Tapper");
+        emp.setSalary(79000);
+        employeeData.updateEmployee(emp);
+        System.out.println("Employee updated: " + employeeData.getEmployeeById(1));
+
+        employeeData.deleteEmployee(1);
+        System.out.println("Employee deleted.");
+    }
+}
             System.out.println(e.toString());
         }
     }
-    String sql = "SELECT * FROM instructor";
 }
